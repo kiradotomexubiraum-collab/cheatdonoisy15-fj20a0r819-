@@ -306,14 +306,6 @@ box:AddSlider("PCLDTransparency", {
     Rounding = 1
 })
 
-box:AddSlider("FOV", {
-    Text = "FOV",
-    Default = 70,
-    Min = 10,
-    Max = 110,
-    Rounding = 1
-})
-
 box:AddToggle("ViewPCLD", {
     Text = "View PCLD(off>>on to update)",
     Default = false,
@@ -342,6 +334,42 @@ box:AddToggle("ViewPCLD", {
 })
 
 end
+
+do
+
+local cam = workspace.CurrentCamera
+local normalFOV = 70
+local currentFOV = 70
+local fovEnabled = false
+
+local box = Tabs.Visual:AddRightGroupbox("Misc")
+
+box:AddToggle("FOVToggle", {
+    Text = "Ativar FOV Personalizado",
+    Default = false,
+    Callback = function(Value)
+        fovEnabled = Value
+        if fovEnabled then
+            cam.FieldOfView = currentFOV
+        else
+            cam.FieldOfView = normalFOV
+        end
+    end
+})
+
+box:AddSlider("FOVSlider", {
+    Text = "FOV",
+    Default = 70,
+    Min = 10,
+    Max = 110,
+    Rounding = 1,
+    Callback = function(Value)
+        currentFOV = Value
+        if fovEnabled then
+            cam.FieldOfView = currentFOV
+        end
+    end
+})
 
 do
 local box = Tabs.Defence:AddLeftGroupbox("Defence")
