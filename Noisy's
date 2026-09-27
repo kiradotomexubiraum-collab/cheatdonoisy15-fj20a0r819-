@@ -257,9 +257,9 @@ do
 	box:AddSlider("FOVSlider", {
  	   Text = "FOV",
   	  Default = 70,
-  	  Min = 10,
-  	  Max = 110,
-  	  Rounding = 1,
+  	  Min = 5,
+  	  Max = 120,
+  	  Rounding = 0,
     	Callback = function(Value)
     	    currentFOV = Value
     	    if fovEnabled then
