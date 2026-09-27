@@ -306,6 +306,14 @@ box:AddSlider("PCLDTransparency", {
     Rounding = 1
 })
 
+box:AddSlider("FOV", {
+    Text = "FOV",
+    Default = 70,
+    Min = 10,
+    Max = 110,
+    Rounding = 1
+})
+
 box:AddToggle("ViewPCLD", {
     Text = "View PCLD(off>>on to update)",
     Default = false,
