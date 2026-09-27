@@ -235,6 +235,40 @@ do
     end)
 end
 do
+    local box = Tabs.Visual:AddRightGroupbox("Misc")
+	local cam = workspace.CurrentCamera
+	local normalFOV = 70
+	local currentFOV = 70
+	local fovEnabled = false
+
+	box:AddToggle("FOVToggle", {
+	    Text = "Ativar FOV Personalizado",
+	    Default = false,
+    	Callback = function(Value)
+        	fovEnabled = Value
+        	if fovEnabled then
+        	    cam.FieldOfView = currentFOV
+        	else
+        	    cam.FieldOfView = normalFOV
+        	end
+    	end
+	})
+
+	box:AddSlider("FOVSlider", {
+ 	   Text = "FOV",
+  	  Default = 70,
+  	  Min = 10,
+  	  Max = 110,
+  	  Rounding = 1,
+    	Callback = function(Value)
+    	    currentFOV = Value
+    	    if fovEnabled then
+     	       cam.FieldOfView = currentFOV
+     	   end
+  	  end
+	})
+end
+do
 
 local box = Tabs.Visual:AddRightGroupbox("Misc")
 
@@ -312,7 +346,7 @@ box:AddToggle("ViewPCLD", {
     Callback = function(v)
         if v then
             local trans = Options.PCLDTransparency.Value
-            for i, v in pairs(workspace:GetChildren()) do
+            for i,v in pairs(workspace:GetChildren()) do
                 if v.Name == "PlayerCharacterLocationDetector" then
                     v.Transparency = trans
                 end
@@ -323,11 +357,8 @@ box:AddToggle("ViewPCLD", {
                 end
             end)
         else
-            if cons["viewpcld"] then 
-                cons["viewpcld"]:Disconnect() 
-                cons["viewpcld"] = nil 
-            end
-            for i, v in pairs(workspace:GetChildren()) do
+            if cons["viewpcld"] then cons["viewpcld"]:Disconnect() cons["viewpcld"] = nil end
+            for i,v in pairs(workspace:GetChildren()) do
                 if v.Name == "PlayerCharacterLocationDetector" then
                     v.Transparency = 1
                 end
@@ -336,39 +367,6 @@ box:AddToggle("ViewPCLD", {
     end
 })
 
-do
-    local cam = workspace.CurrentCamera
-    local normalFOV = 70
-    local currentFOV = 70
-    local fovEnabled = false
-
-    -- Adicionando diretamente na box existente sem redefinir a variável local "box"
-    box:AddToggle("FOVToggle", {
-        Text = "Ativar FOV Personalizado",
-        Default = false,
-        Callback = function(Value)
-            fovEnabled = Value
-            if fovEnabled then
-                cam.FieldOfView = currentFOV
-            else
-                cam.FieldOfView = normalFOV
-            end
-        end
-    })
-
-    box:AddSlider("FOVSlider", {
-        Text = "FOV",
-        Default = 70,
-        Min = 10,
-        Max = 110,
-        Rounding = 1,
-        Callback = function(Value)
-            currentFOV = Value
-            if fovEnabled then
-                cam.FieldOfView = currentFOV
-            end
-        end
-    })
 end
 
 do
